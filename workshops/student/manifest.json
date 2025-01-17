@@ -1,0 +1,55 @@
+{
+    "workshoptitle": "MySQL Enterprise Edition - Backup Workshop - Student",
+    "include": {"starter-file.sql":"../../data-load/files/starter-file.sql",
+                "sample.json":"../../data-load/files/sample.json",
+                "step2.md":"../../data-load/files/step2.md"},
+    "help": "livelabs-help-**enterarea**_us@oracle.com",
+    "tutorials": [
+        {
+            "title": "Introduction",
+            "description": "The Introduction is always first. The title and contents menu title match for the Introduction.",
+            "filename": "../../introduction/introduction.md"
+        },
+        {
+            "title": "Lab 1: Install - MySQL Enterprise Edition",
+            "description": "Install - MySQL Enterprise Edition",
+            "filename": "../../install-ee/install-ee.md"
+        },
+        {
+            "title": "Lab 2: MySQL Shell and mysql_config_editor",
+            "description": "MySQL Shell client",
+            "filename": "../../mysql-shell/mysql-shell.md"
+        },
+        {
+            "title": "Lab 3: Logical Backup and Restore with mysql dump",
+            "description": "Security - MySQL Users",
+            "filename": "../../mysqldump/mysqldump.md"
+        },
+        {
+            "title": "Lab 4: Logical Backup and Restore with MySQL Shell dump & Load",
+            "description": "Security - MySQL Enterprise Audit",
+            "filename": "../../mysql-shell-dump_and_load/mysql-shell-dump_and_load.md"
+        },
+        {
+            "title": "Lab 5: MySQL Enterprise Backup and Restore",
+            "description": "Security - MySQL Enterprise Transparent Data Encryption (TDE)",
+            "filename": "../../enterprise-backup/enterprise-backup.md"
+        },
+        {
+            "title": "Lab 6: MySQL Enterprise Backup and Restore (options)",
+            "description": "Security - MySQL Data Masking",
+            "filename": "../../enterprise-backup-options/enterprise-backup-options.md"
+        },
+        {
+            "title": "Lab 7: MySQL Point in Time Recovery",
+            "description": "Security - MySQL Firewall",
+            "filename": "../../point-in-time-recovery/point-in-time-recovery.md"
+        },
+
+        {
+            "title": "Need Help?",
+            "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+            "filename":"https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/need-help/need-help-freetier.md"
+        }
+    ]
+}
