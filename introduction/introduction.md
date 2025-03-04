@@ -2,13 +2,12 @@
 
 ## About this Workshop
 
-Customer’s data is the most important IP, preserve it’s integrity and be able to restore in case of accident is a mandatory activity.
-Data recovery is needed in many situations: recover from disaster, fix a human mistake, create HA or DR sites, retention for regulations, etc. And different needs require different tools.
-Join us at this hands-on workshop to learn how MySQL EE backup can protect your customer's data.
+One of the features of MySQL is to create stored routines to make automation and better security.
+MySQL 9 extend from SQL to javascript the development language for these, a language well know by developers, fast, rich  and performant. 
 
-This workshop covers how to use logical backups tools (mysqldump, MySQL Shell) and physical backups with MySQL Enterprise Backup.
-
-Securing the data stored in your MySQL Server is key towards avoiding breaches and achieving Regulatory Compliance.  This workshop covers the installation, configuration and testing of 4 of the MySQL Security Based Enterprise Features.  We will go through how to setup and run Enterprise Audit, Enterprise Transparent Data Encryption, Enterprise FireWall and Enterprise Data Masking.
+In this workshop we focus on stored procedures and stored functions, starting with an overview of generic sql, to move then to javascript.
+We'll play with  SQL, and javascript and see how to create stored procedures and functions to improve our MySQL instances.
+This is not an SQL or javascript course, and basic knowledge of MYSQL, SQL and javascript is recommended.
 
 Estimated Workshop Time: 1.5 hours (This estimate is for the entire workshop - it is the sum of the estimates provided for each of the labs included in the workshop.)
 
@@ -18,25 +17,25 @@ Estimated Workshop Time: 1.5 hours (This estimate is for the entire workshop - i
 - Knowledge on common Linux commands (yum, ls, mv, cp, tar, pwd, ps, systemctl, tail, groupadd, useradd, grep, kill) and editors (vi, or nano)
    - labs are executed in Oracle Linux 8 servers
 - Knowledge of MySQL architecture (including binary logs) and MySQL commands
+- Knowledge of MySQL SQL
+- Knowledge of javascript
 
 ## Objectives
 
-In this workshop, you will learn how to work with
+In this workshop, you will learn
 
-- mysqldump for backup and restore
-- MySQL Shell dump & load for backup and restore
-- MySQL Enterprise Enterprise Backup for backup and restore
-- Point In Time Recovery
+- an overview of SQL stored procedures and functions
+- how to install and use MySQL javascript MLE component
+- write stored procedures and functions in javascript
 
 You may now **proceed to the next lab**
 
 ## Learn More
 
 - [MySQL Home Page](https://www.mysql.com/)
-- [mysqldump utility](https://dev.mysql.com/doc/refman/8.4/en/mysqldump.html)
-- [MySQL Shell dump & load](https://dev.mysql.com/doc/mysql-shell/8.4/en/mysql-shell-utilities-dump-instance-schema.html)
-- [MySQL Enterprise Backup](https://dev.mysql.com/doc/mysql-enterprise-backup/8.4/en/)
-- [MySQL Point in Time Recovery](https://dev.mysql.com/doc/refman/8.4/en/point-in-time-recovery.html)
+- [MySQL store objects](https://dev.mysql.com/doc/refman/9.2/en/stored-objects.html)
+- [MySQL javascript announcement](https://blogs.oracle.com/mysql/post/introducing-javascript-support-in-mysql)
+- [MySQL javascript stored routines](https://dev.mysql.com/doc/refman/9.2/en/stored-routines-js.html)
 
 ## Acknowledgements
 
