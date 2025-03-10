@@ -9,13 +9,16 @@ With the MLE component in MySQL 9.2, you can create and execute MySQL stored pro
 The MLE component uses graalvm to provide native support for JavaScript as a stored procedure language.  
 Javascript enables more complex logic directly in the database and enhanced performance over traditional interpreted approaches.
 
-> Note
-  There are various limitations to Javascript implementation, for the full list check the manual.  
-  Here some of them  
+> Note  
+There are various limitations to Javascript implementation, for the full list [check the manual](https://dev.mysql.com/doc/refman/9.2/en/srjs-limitations.html).  
   * The MLE component uses a single-threaded execution model (one thread per query). This means that all asynchronous features like the JavaScript Promise object and async functions are simulated and can exhibit non-deterministic behavior.
   * As with SQL stored routines, JavaScript stored routines with a variable number of arguments are not supported. But JavaScript functions within routines can have a variable number of arguments.
   * The recursion depth is limited to 1000
 
+> About the conversion between MySQL data types and Javascript data types, check the manual.  
+Here some important notes
+  * MySQL **DECIMAL** is not supported in Javascript
+  * Javascript **Infinity**, **NaN**, or **Symbol** are not supported in MySQL  
 
 
 Estimated Time: 15 minutes

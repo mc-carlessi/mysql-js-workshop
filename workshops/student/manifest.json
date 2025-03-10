@@ -36,12 +36,7 @@
             "filename": "../../js-libraries/js-libraries.md"
         },
         {
-            "title": "Lab 6: MySQL JS - SQL",
-            "description": "MySQL JS - SQL",
-            "filename": "../../enterprise-backup/enterprise-backup.md"
-        },
-        {
-            "title": "Lab 7: MySQL JS - Security and monitoring",
+            "title": "Lab 6: MySQL JS - Security and monitoring",
             "description": "MySQL JS - Security and monitoring",
             "filename": "../../store-programming-security/store-programming-security.md"
         },
