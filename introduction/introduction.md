@@ -9,6 +9,10 @@ In this workshop we focus on stored procedures and stored functions, starting wi
 We'll play with  SQL, and javascript and see how to create stored procedures and functions to improve our MySQL instances.
 This is not an SQL or javascript course, and basic knowledge of MYSQL, SQL and javascript is recommended.
 
+**IMPORTANT NOTE**
+This workshop is created for a specific Innovation release (***MySQL Server 9.2***).  
+It may not works in some parts for other Innovation releases.
+
 Estimated Workshop Time: 1.5 hours (This estimate is for the entire workshop - it is the sum of the estimates provided for each of the labs included in the workshop.)
 
 ## Prerequisite

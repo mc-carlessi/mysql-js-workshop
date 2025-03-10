@@ -45,9 +45,9 @@ Pay attention to the prompt, to know where execute the commands
 
 2. Now connect yo your MySQL instance
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    **![green-dot](./images/green-square.jpg) mysqlsh>**
     ```sql
-    </span> <copy>mysqlsh admin@127.0.0.1</copy>
+    <copy>mysqlsh admin@127.0.0.1</copy>
     ```
 
 3. Let's create a database for our store programs
@@ -57,7 +57,7 @@ Pay attention to the prompt, to know where execute the commands
     <copy>CREATE DATABASE test;</copy>
     ```
 
-4. Let's create a database for our store programs
+4. Set the database as default for our store programming
 
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
@@ -66,7 +66,7 @@ Pay attention to the prompt, to know where execute the commands
 
 5. A **stored procedure** is an object created with CREATE PROCEDURE and invoked using the CALL statement. This object contains a set of instructions that are executed as a program.  
   A procedure **does not have a return value**, but can modify its parameters for later inspection by the caller. It can also generate result sets to be returned to the client program.  
-  Let's create a simple one with these commends (***expect an error message!***) specifying
+  Let's create a simple one specifying (***expect an error message!***) 
   * CREATE PROCEDURE <name of the procedure>()
   * BEGIN to start the code block
   * END to end to block code
@@ -75,7 +75,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
   <copy>
-  CREATE PROCEDURE helloword()
+  CREATE PROCEDURE helloword_sql()
   BEGIN
     SELECT "Hello World";
   END;
@@ -98,7 +98,7 @@ Pay attention to the prompt, to know where execute the commands
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
     <copy>
-    CREATE PROCEDURE helloword()
+    CREATE PROCEDURE helloword_sql()
     BEGIN
       SELECT "Hello World";
     END;
@@ -120,12 +120,12 @@ Pay attention to the prompt, to know where execute the commands
     <copy>DELIMITER ;</copy>
     ```
 
-10. Our first stored procedure is created,a nd we are now ready toe execute it using the 'CALL' command.
+10. Our first stored procedure is created, and we are now ready to execute it using the 'CALL' command.
 
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
 
     ```sql
-    <copy>CALL helloword;</copy>
+    <copy>CALL helloword_sql;</copy>
     ```
 
     **OUTPUT:**
@@ -150,7 +150,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
 
   ```
-  <copy>DROP PROCEDURE IF EXISTS helloword;</copy>
+  <copy>DROP PROCEDURE IF EXISTS helloword_sql;</copy>
   ```
 
 2. Recreate the stored procedure to use a parameter.
@@ -162,7 +162,7 @@ Pay attention to the prompt, to know where execute the commands
   <copy>
   DELIMITER //
 
-  CREATE PROCEDURE helloword(IN name VARCHAR(50))
+  CREATE PROCEDURE helloword_sql(IN name VARCHAR(50))
     BEGIN
     select concat("Hello world from ", name);
   END;
@@ -177,7 +177,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
-  <copy>CALL helloword('Goofy');</copy>
+  <copy>CALL helloword_sql('Goofy');</copy>
   ```
 
   **OUTPUT:**
@@ -194,7 +194,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
-  <copy>CALL helloword();</copy>
+  <copy>CALL helloword_sql();</copy>
   ```
 
   **OUTPUT:**
@@ -211,7 +211,7 @@ Pay attention to the prompt, to know where execute the commands
   
   DELIMITER //
 
-  CREATE PROCEDURE helloword(IN name VARCHAR(50))
+  CREATE PROCEDURE helloword_sql(IN name VARCHAR(50))
     BEGIN
     DECLARE msg VARCHAR(20) DEFAULT '';
 
@@ -229,7 +229,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
-  <copy>CALL helloword('Goofy');</copy>
+  <copy>CALL helloword_sql('Goofy');</copy>
   ```
 
   **OUTPUT:**
@@ -252,13 +252,13 @@ Pay attention to the prompt, to know where execute the commands
   
   DELIMITER //
 
-  CREATE PROCEDURE helloword(IN name VARCHAR(50))
+  CREATE PROCEDURE helloword_sql(IN name VARCHAR(50))
   BEGIN
 
     IF name = '' OR name IS NULL then
-      SELECT ('Hello world from from anonymous') as greetings;
+      SELECT ('Hello world from from anonymous') as message;
     ELSE
-      SELECT CONCAT('Hello world from from ', name) as greetings;
+      SELECT CONCAT('Hello world from from ', name) as message;
     END IF;
   END;
   
@@ -272,13 +272,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>CALL helloword('Goofy');</copy>
+  <copy>CALL helloword_sql('Goofy');</copy>
   ```
 
   **OUTPUT:**
   ```
   +-----------------------------------+
-  | greetings                         |
+  | message                         |
   +-----------------------------------+
   | Hello world from Goofy            |
   +-----------------------------------+
@@ -288,13 +288,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>CALL helloword('');</copy>
+  <copy>CALL helloword_sql('');</copy>
   ```
 
   **OUTPUT:**
   ```
   +---------------------------------+
-  | greetings                       |
+  | message                       |
   +---------------------------------+
   | Hello world from from anonymous |
   +---------------------------------+
@@ -303,12 +303,12 @@ Pay attention to the prompt, to know where execute the commands
 ## Task 4: SQL Store functions
 
 1. A **stored function** is an object created with CREATE FUNCTION and invoked like a native function. This object contains a set of instructions that are executed as a program.  
-   A function can **return value** and can have parameters.   
-  Now we create a simple one with these commends (***expect an error message!***) specifying
+  A function can **return value** and can have parameters.   
+  Now we create a simple one specifying
   * CREATE FUNCTION <name of the function>()
   * BEGIN to start the code block
   * END to end to block code
-  * Return an "Hello World" greeting 
+  * Return an "Hello World" message 
   You see that it's very similar to stored procedure
 
 
@@ -317,17 +317,17 @@ Pay attention to the prompt, to know where execute the commands
   <copy>
   DELIMITER //
 
-  CREATE FUNCTION helloword(name VARCHAR(50)) RETURNS CHAR(50) DETERMINISTIC
+  CREATE FUNCTION helloword_sqlf(name VARCHAR(50)) RETURNS CHAR(50) DETERMINISTIC
   BEGIN
-    DECLARE greeting CHAR(50) DEFAULT '';
+    DECLARE message CHAR(50) DEFAULT '';
     
     IF name = '' OR name IS NULL then
-      set greeting = 'Hello world from from anonymous';
+      set message = 'Hello world from from anonymous';
     ELSE
-      set greeting= CONCAT('Hello world from from ', name);
+      set message= CONCAT('Hello world from from ', name);
     END IF;
 
-    return greeting;
+    return message;
   END;
   
   //
@@ -340,13 +340,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT helloword('');</copy>
+  <copy>SELECT helloword_sqlf('');</copy>
   ```
 
   **OUTPUT:**
   ```
   +---------------------------------+
-  | helloword('')                   |
+  | helloword_sqlf('')              |
   +---------------------------------+
   | Hello world from from anonymous |
   +---------------------------------+
@@ -356,13 +356,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT helloword('Goofy') AS greeting;</copy>
+  <copy>SELECT helloword_sqlf('Goofy') AS message;</copy>
   ```
 
   **OUTPUT:**
   ```
   +-----------------------------+
-  | greeting                    |
+  | message                     |
   +-----------------------------+
   | Hello world from from Goofy |
   +-----------------------------+
@@ -430,16 +430,16 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT gcd_sql(10,5) AS greeting;</copy>
+  <copy>SELECT gcd_sql(10,5) AS message;</copy>
   ```
 
   **OUTPUT:**
   ```
-  +-----------------------------+
-  | greeting                    |
-  +-----------------------------+
-  | Hello world from from Goofy |
-  +-----------------------------+
+  +---------+
+  | message |
+  +---------+
+  |       5 |
+  +---------+
   ```
 
 ## Task 5: SQL stored procedure - error handling
@@ -528,7 +528,7 @@ Pay attention to the prompt, to know where execute the commands
   </copy>
   ```
 
-7. Check now the new behaviour in case of duplicate.
+7. Check now the new behavior in case of duplicate.
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -543,6 +543,12 @@ Pay attention to the prompt, to know where execute the commands
   | Error: Duplicate username. Please choose a different username. |
   +----------------------------------------------------------------+
   ```
+
+## Task 6: Store procedure information
+
+1. select ROUTINE_NAME from information_schema.routines where ROUTINE_SCHEMA='test';
+
+2. select ROUTINE_NAME ROUTINE_TYPE, CREATED, LAST_ALTERED, ROUTINE_COMMENT, ROUTINE_DEFINITION from information_schema.routines where ROUTINE_SCHEMA='test' and ROUTINE_NAME='helloword'\G
 
 ## Learn More
 

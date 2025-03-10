@@ -23,17 +23,17 @@
         {
             "title": "Lab 3: MySQL JS store programming - Introduction",
             "description": "MySQL JS store programming - Introduction",
-            "filename": "../../mysqldump/mysqldump.md"
+            "filename": "../../js-programming-intro/js-programming-intro.md"
         },
         {
             "title": "Lab 4: MySQL JS store programming",
             "description": "MySQL JS store programming examples",
-            "filename": "../../mysql-shell-dump_and_load/mysql-shell-dump_and_load.md"
+            "filename": "../../js-programming/js-programming.md"
         },
         {
             "title": "Lab 5: MySQL JS - Libraries",
             "description": "MySQL JS - Libraries",
-            "filename": "../../enterprise-backup/enterprise-backup.md"
+            "filename": "../../js-libraries/js-libraries.md"
         },
         {
             "title": "Lab 6: MySQL JS - SQL",
@@ -43,7 +43,7 @@
         {
             "title": "Lab 7: MySQL JS - Security and monitoring",
             "description": "MySQL JS - Security and monitoring",
-            "filename": "../../enterprise-backup/enterprise-backup.md"
+            "filename": "../../store-programming-security/store-programming-security.md"
         },
         {
             "title": "Need Help?",
