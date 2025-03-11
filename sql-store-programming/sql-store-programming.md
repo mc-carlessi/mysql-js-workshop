@@ -544,11 +544,7 @@ Pay attention to the prompt, to know where execute the commands
   +----------------------------------------------------------------+
   ```
 
-## Task 6: Store procedure information
 
-1. select ROUTINE_NAME from information_schema.routines where ROUTINE_SCHEMA='test';
-
-2. select ROUTINE_NAME ROUTINE_TYPE, CREATED, LAST_ALTERED, ROUTINE_COMMENT, ROUTINE_DEFINITION from information_schema.routines where ROUTINE_SCHEMA='test' and ROUTINE_NAME='helloword'\G
 
 ## Learn More
 

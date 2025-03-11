@@ -321,12 +321,15 @@ Pay attention to the prompt, to know where execute the commands
 
   **OUTPUT:**
   ```
-  +--------------+
-  | STDOUT       |
-  +--------------+
-  | Hello World
+  +-------------------------------------------------------------+
+  | STDOUT                                                      |
+  +-------------------------------------------------------------+
+  | Name,Population
+  Roma,2643581
+  Milano,1300977
+  Napoli,1002619
   |
-  +--------------+
+  +-------------------------------------------------------------+
   ```
 
 ## Task 4: Javascript error handling
