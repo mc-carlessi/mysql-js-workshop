@@ -16,29 +16,29 @@
             "filename": "../../install-ee/install-ee.md"
         },
         {
-            "title": "Lab 2: MySQL SQL store programming - Overview",
+            "title": "Lab 2: MySQL SQL stored programming - Overview",
             "description": "MySQL store programming in SQL",
             "filename": "../../sql-store-programming/sql-store-programming.md"
         },
         {
-            "title": "Lab 3: MySQL JS store programming - Introduction",
-            "description": "MySQL JS store programming - Introduction",
+            "title": "Lab 3: MySQL Javascript - Introduction",
+            "description": "MySQL JS stored programming - Introduction",
             "filename": "../../js-programming-intro/js-programming-intro.md"
         },
         {
-            "title": "Lab 4: MySQL JS store programming",
+            "title": "Lab 4: MySQL Javascript stored programming",
             "description": "MySQL JS store programming examples",
             "filename": "../../js-programming/js-programming.md"
         },
         {
-            "title": "Lab 5: MySQL JS - Libraries",
+            "title": "Lab 5: MySQL Javascript Libraries",
             "description": "MySQL JS - Libraries",
             "filename": "../../js-libraries/js-libraries.md"
         },
         {
-            "title": "Lab 6: MySQL JS - Security and monitoring",
+            "title": "Lab 6: MySQL Javascript - Security and monitoring",
             "description": "MySQL JS - Security and monitoring",
-            "filename": "../../store-programming-security/store-programming-security.md"
+            "filename": "../../security-and-monitoring/security-and-monitoring.md"
         },
         {
             "title": "Need Help?",

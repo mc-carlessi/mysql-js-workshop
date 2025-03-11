@@ -1,22 +1,8 @@
-# INSTALL - MYSQL ENTERPRISE EDITION
+# MYSQL JAVASCRIPT - SECURITY AND MONITORING
 
 ## Introduction
 
-The Multilingual Engine component (MLE) provides support for languages other than SQL in MySQL stored procedures and functions. The MLE Component is available as part of MySQL Enterprise Edition.
-
-With the MLE component in MySQL 9.2, you can create and execute MySQL stored programs written in JavaScript.
-
-The MLE component uses graalvm to provide native support for JavaScript as a stored procedure language.  
-Javascript enables more complex logic directly in the database and enhanced performance over traditional interpreted approaches.
-
-> Note
-  There are various limitations to Javascript implementation, for the full list check the manual.  
-  Here some of them  
-  * The MLE component uses a single-threaded execution model (one thread per query). This means that all asynchronous features like the JavaScript Promise object and async functions are simulated and can exhibit non-deterministic behavior.
-  * As with SQL stored routines, JavaScript stored routines with a variable number of arguments are not supported. But JavaScript functions within routines can have a variable number of arguments.
-  * The recursion depth is limited to 1000
-
-
+Sometimes you need to check stored programs, and sometimes you want to use the different definer/invoker privilege. 
 
 Estimated Time: 15 minutes
 
@@ -62,7 +48,7 @@ Pay attention to the prompt, to know where execute the commands
   <copy>mysqlsh admin@127.0.0.1</copy>
   ```
 
-3. Let's increase hte error log verbosity to see more information 
+3. Let's increase the error log verbosity to see more information 
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql

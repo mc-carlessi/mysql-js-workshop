@@ -1,4 +1,4 @@
-# INSTALL - MYSQL ENTERPRISE EDITION
+# MYSQL JAVASCRIPT - INTRODUCTION
 
 ## Introduction
 
@@ -65,7 +65,7 @@ Pay attention to the prompt, to know where execute the commands
   <copy>mysqlsh admin@127.0.0.1</copy>
   ```
 
-3. Let's increase hte error log verbosity to see more information 
+3. Let's increase the error log verbosity to see more information 
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql

@@ -1,4 +1,4 @@
-# INSTALL - MYSQL SQL STORE PROGRAMMING - OVERVIEW  
+# MYSQL JAVASCRIPT STORED PROGRAMMING  
 
 ## Introduction
 MySQL store programming is traditionally based on stored procedures and functions.  
