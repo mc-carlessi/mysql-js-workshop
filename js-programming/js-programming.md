@@ -413,7 +413,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```js
   <copy>
-  CREATE PROCEDURE jssp_simple_error(IN query VARCHAR(250))
+  CREATE PROCEDURE jssp_simple_error(IN mytable VARCHAR(250))
   LANGUAGE JAVASCRIPT AS $mle$
   let session = mysql.getSession()
   console.clear();

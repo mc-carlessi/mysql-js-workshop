@@ -207,7 +207,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
   <copy>
-  DROP PROCEDURE IF EXISTS helloword;
+  DROP PROCEDURE IF EXISTS helloword_sql;
   
   DELIMITER //
 
@@ -248,7 +248,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
   <copy>
-  DROP PROCEDURE IF EXISTS helloword;
+  DROP PROCEDURE IF EXISTS helloword_sql;
   
   DELIMITER //
 
@@ -369,6 +369,8 @@ Pay attention to the prompt, to know where execute the commands
   ```
 
 4. Of course you can also write a query, for example to extract the population ratio of a specific country
+  SQL comments are written with '--'  
+
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
   <copy>
@@ -379,9 +381,9 @@ Pay attention to the prompt, to know where execute the commands
     DECLARE worldpop, cpop BIGINT;
 
     -- Sum the total population
-    SELECT SUM(population) FROM country INTO worldpop;
+    SELECT SUM(population) FROM world.country INTO worldpop;
     -- Retrieve the population fo the country
-    SELECT population FROM country WHERE CODE = c_code INTO cpop;
+    SELECT population FROM world.country WHERE CODE = c_code INTO cpop;
     -- Return the percentage
     RETURN cpop / worldpop * 100;
   END
@@ -393,7 +395,7 @@ Pay attention to the prompt, to know where execute the commands
   ```
 
 
-5. Now let's write a more complex function, to calculate the greatest common divisor
+5. Now let's write a more complex function, to calculate the greatest common divisor  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -430,16 +432,16 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT gcd_sql(10,5) AS message;</copy>
+  <copy>SELECT gcd_sql(10,5) AS gcd;</copy>
   ```
 
   **OUTPUT:**
   ```
-  +---------+
-  | message |
-  +---------+
-  |       5 |
-  +---------+
+  +-----+
+  | gcd |
+  +-----+
+  |   5 |
+  +-----+
   ```
 
 ## Task 5: SQL stored procedure - error handling
@@ -474,7 +476,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>call insert_user('Goofy');</copy>
+  <copy>CALL insert_user('Goofy');</copy>
   ```
 
   **OUTPUT:**
@@ -490,7 +492,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>call insert_user('Goofy');</copy>
+  <copy>CALL insert_user('Goofy');</copy>
   ```
 
   **OUTPUT:**
@@ -532,7 +534,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>call insert_user('Goofy');</copy>
+  <copy>CALL insert_user('Goofy');</copy>
   ```
 
   **OUTPUT:**
