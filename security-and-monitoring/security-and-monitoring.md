@@ -128,14 +128,14 @@ Pay attention to the prompt, to know where execute the commands
   <copy>\c admin@127.0.0.1</copy>
   ```
 
-2. We can search the programs in a specific database
+2. We can search all the programs in a specific database
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
   <copy>select ROUTINE_NAME from information_schema.routines where ROUTINE_SCHEMA='test';</copy>
   ```
 
-  **OUTPUT:**
+  **OUTPUT SAMPLE:**
   ```
   +--------------------+
   | ROUTINE_NAME       |
@@ -148,11 +148,108 @@ Pay attention to the prompt, to know where execute the commands
   ...
   ```
 
-3. We can also check the content of a specific program
+3. We can show the creation code of the program.  
+  Be careful to choose correctly between 'SHOW CREATE **PROCEDURE**' and 'SHOW CREATE **FUNCTION**'  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>select ROUTINE_NAME ROUTINE_TYPE, CREATED, LAST_ALTERED, ROUTINE_COMMENT, ROUTINE_DEFINITION 
+  <copy>SHOW CREATE FUNCTION helloword_jsf\G</copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  *************************** 1. row ***************************
+             Function: helloword_jsf
+             sql_mode: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+      Create Function: CREATE DEFINER=`admin`@`%` FUNCTION `helloword_jsf`(name VARCHAR(50)) RETURNS char(50) CHARSET utf8mb4
+      DETERMINISTIC
+      LANGUAGE JAVASCRIPT
+  AS $$
+      return "Hello world from " + name;
+    $$
+  character_set_client: utf8mb4
+  collation_connection: utf8mb4_0900_ai_ci
+    Database Collation: utf8mb4_0900_ai_ci
+  ```
+
+4. We can check the characteristics of a stored procedure, such as the database, name, type, creator, creation and modification dates, and character set information with "SHOW [PROCEDURE|FUNCTION] STATUS &lt;LIKE 'program name'&gt;"  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>SHOW FUNCTION STATUS LIKE 'helloword_jsf'\G</copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  *************************** 1. row ***************************
+                    Db: test
+                  Name: helloword_jsf
+                  Type: FUNCTION
+              Language: JAVASCRIPT
+               Definer: admin@%
+              Modified: 2025-03-05 17:19:37
+               Created: 2025-03-05 17:19:37
+         Security_type: DEFINER
+               Comment:
+  character_set_client: utf8mb4
+  collation_connection: utf8mb4_0900_ai_ci
+    Database Collation: utf8mb4_0900_ai_ci
+  ```
+
+5. We can check just the parameters  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>
+  SELECT * 
+  FROM information_schema.parameters 
+  WHERE SPECIFIC_SCHEMA='test' AND SPECIFIC_NAME='helloword_jsf'\G
+  </copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  *************************** 1. row ***************************
+          SPECIFIC_CATALOG: def
+           SPECIFIC_SCHEMA: test
+             SPECIFIC_NAME: helloword_jsf
+          ORDINAL_POSITION: 0
+            PARAMETER_MODE: NULL
+            PARAMETER_NAME: NULL
+                 DATA_TYPE: char
+  CHARACTER_MAXIMUM_LENGTH: 50
+    CHARACTER_OCTET_LENGTH: 200
+         NUMERIC_PRECISION: NULL
+             NUMERIC_SCALE: NULL
+        DATETIME_PRECISION: NULL
+        CHARACTER_SET_NAME: utf8mb4
+            COLLATION_NAME: utf8mb4_0900_ai_ci
+            DTD_IDENTIFIER: char(50)
+              ROUTINE_TYPE: FUNCTION
+  *************************** 2. row ***************************
+          SPECIFIC_CATALOG: def
+           SPECIFIC_SCHEMA: test
+             SPECIFIC_NAME: helloword_jsf
+          ORDINAL_POSITION: 1
+            PARAMETER_MODE: IN
+            PARAMETER_NAME: name
+                 DATA_TYPE: varchar
+  CHARACTER_MAXIMUM_LENGTH: 50
+    CHARACTER_OCTET_LENGTH: 200
+         NUMERIC_PRECISION: NULL
+             NUMERIC_SCALE: NULL
+        DATETIME_PRECISION: NULL
+        CHARACTER_SET_NAME: utf8mb4
+            COLLATION_NAME: utf8mb4_0900_ai_ci
+            DTD_IDENTIFIER: varchar(50)
+              ROUTINE_TYPE: FUNCTION
+  ```
+
+4. We can also check the overall information related to a specific program interrogating the table information_schema.routines  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>SELECT * 
   FROM information_schema.routines 
   WHERE ROUTINE_SCHEMA='test' 
   AND ROUTINE_NAME='helloword_jsf'\G</copy>
@@ -195,12 +292,6 @@ Pay attention to the prompt, to know where execute the commands
       COLLATION_CONNECTION: utf8mb4_0900_ai_ci
         DATABASE_COLLATION: utf8mb4_0900_ai_ci
   ```
-
-select ROUTINE_NAME ROUTINE_TYPE, CREATED, LAST_ALTERED, ROUTINE_COMMENT, ROUTINE_DEFINITION from information_schema.routines where ROUTINE_SCHEMA='test' and ROUTINE_NAME='helloword'\G
-
-
-
-
 
 
 This **ends the workshop**
