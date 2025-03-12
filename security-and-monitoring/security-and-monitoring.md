@@ -118,7 +118,7 @@ Pay attention to the prompt, to know where execute the commands
   +-------------------------------------------------------------+
   ```
 
-## Task 2: Store procedure information
+## Task 2: Store programs information
 
 1. We see now some useful queries.  
   But first, reconnect as admin
@@ -293,6 +293,45 @@ Pay attention to the prompt, to know where execute the commands
         DATABASE_COLLATION: utf8mb4_0900_ai_ci
   ```
 
+## Task 3: Libraries information
+
+1. We can search all the libraries available  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>SELECT LIBRARY_SCHEMA, LIBRARY_NAME, LANGUAGE, CREATOR FROM information_schema.libraries;</copy>
+  ```
+
+  **OUTPUT SAMPLE:**
+  ```
+  +----------------+-----------------+------------+---------+
+  | LIBRARY_SCHEMA | LIBRARY_NAME    | LANGUAGE   | CREATOR |
+  +----------------+-----------------+------------+---------+
+  | jslib          | lib1            | JAVASCRIPT | admin@% |
+  | test           | my_math_library | JAVASCRIPT | admin@% |
+  +----------------+-----------------+------------+---------+
+  ```
+
+3. We can show the creation code of the library.  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>SHOW CREATE LIBRARY jslib.lib1\G</copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  *************************** 1. row ***************************
+         Library: lib1
+        sql_mode: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+  Create Library: CREATE LIBRARY `lib1`
+      LANGUAGE JAVASCRIPT
+  AS $$
+      export function f(n) {
+        return n * 2;
+      }
+    $$
+  ```
 
 This **ends the workshop**
 
