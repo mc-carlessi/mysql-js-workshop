@@ -170,7 +170,7 @@ Pay attention to the prompt, to know where execute the commands
     <copy>\quit</copy>
     ```
 
-You may now **proceed to the next lab**
+You can now **proceed to the next lab**
 
 ## Learn More
 

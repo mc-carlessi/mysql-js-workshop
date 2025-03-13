@@ -1,12 +1,12 @@
-# INSTALL - MYSQL SQL STORE PROGRAMMING - OVERVIEW  
+# MYSQL SQL STORE PROGRAMMING - OVERVIEW  
 
 ## Introduction
-MySQL store programming is traditionally based on stored procedures and functions.  
-We see her how to create them.
+MySQL store programming is traditionally based on stored procedures and functions written in SQL.  
+We recap here how to create and use stored procedures and stored functions them.
 
 Goal:
-- Practice with MySQL Shell
-- practice with mysql_config_editor
+- Create SQL stored procedures
+- Create SQL stored functions
 
 Estimated Time:  10 minutes
 
@@ -14,7 +14,7 @@ Estimated Time:  10 minutes
 
 In this lab, you will:
 
-- Understand how MySQL Shell works
+- Recap SQL store programming
 
 ### Prerequisites
 
@@ -546,12 +546,11 @@ Pay attention to the prompt, to know where execute the commands
   +----------------------------------------------------------------+
   ```
 
-
+You can now **proceed to the next lab**
 
 ## Learn More
 
-* [MySQL Shell manual](https://dev.mysql.com/doc/mysql-shell/8.4/en/)
-* [mysql\_config\_editor manual page](https://dev.mysql.com/doc/refman/8.4/en/mysql-config-editor.html)
+* [Defining Stored Programs](https://dev.mysql.com/doc/refman/9.2/en/stored-programs-defining.html)
 
 ## Acknowledgements
 

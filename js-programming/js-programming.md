@@ -1,12 +1,12 @@
 # MYSQL JAVASCRIPT STORED PROGRAMMING  
 
 ## Introduction
-MySQL store programming is traditionally based on stored procedures and functions.  
-We see her how to create them.
+JavaScript stored programs can be used together with other user-created and MySQL-native stored programs (subject to some limitations described in teh manual), as well as with MySQL system and user variables. 
 
 Goal:
-- Practice with MySQL Shell
-- practice with mysql_config_editor
+- Create Javascript stored procedures
+- Create Javascript stored functions
+- Works with SQL objects within Javascript programs
 
 Estimated Time:  10 minutes
 
@@ -14,7 +14,10 @@ Estimated Time:  10 minutes
 
 In this lab, you will:
 
-- Understand how MySQL Shell works
+- Create stored procedures and functions in Javascript
+- Works with SQL objects from Javascript programs
+- Handle errors in Javascript programs
+- Javascript programs error handling
 
 ### Prerequisites
 
@@ -34,7 +37,7 @@ Pay attention to the prompt, to know where execute the commands
 * ![blue-dot](./images/blue-square.jpg) mysqlsh>  
   The command must be executed in MySQL shell python command mode
 
-## Task 1: Javascript Store procedures
+## Task 1: Javascript Stored procedures
 
 1. If not already connected, connect to your mysql server
 
@@ -47,7 +50,7 @@ Pay attention to the prompt, to know where execute the commands
 
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
-    </span> <copy>mysqlsh admin@127.0.0.1</copy>
+    <copy>mysqlsh admin@127.0.0.1</copy>
     ```
 
 3. Let's set the default database for our store programs
@@ -504,8 +507,10 @@ Pay attention to the prompt, to know where execute the commands
 
 ## Learn More
 
-* [MySQL Shell manual](https://dev.mysql.com/doc/mysql-shell/8.4/en/)
-* [mysql\_config\_editor manual page](https://dev.mysql.com/doc/refman/8.4/en/mysql-config-editor.html)
+* [JavaScript Stored Program Creation and Management](https://dev.mysql.com/doc/refman/9.2/en/srjs-management.html)
+* [JavaScript Stored Programs—Session Information and Options](https://dev.mysql.com/doc/refman/9.2/en/srjs-session-info.html)
+* [JavaScript SQL API](https://dev.mysql.com/doc/refman/9.2/en/srjs-sql-api.html)
+* [JavaScript Stored Program Data Types and Argument Handling](https://dev.mysql.com/doc/refman/9.2/en/srjs-data-arguments.html)
 
 ## Acknowledgements
 

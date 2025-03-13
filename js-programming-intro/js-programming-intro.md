@@ -27,17 +27,16 @@ Estimated Time: 15 minutes
 
 In this lab, you will:
 
-* Install MySQL Enterprise Edition
-* Install MySQL Shell 
-* Import a sample database
+* Install MySQL MLE component
+* Check MLE component status and variables
+* Create the first Javascript stored program
 
 
 ### Prerequisites
 
 This lab assumes you have:
-* A working Oracle Linux machine
-* The MySQL Enterprise rpms for Oracle Linux inside /workshop directory
-* The employees sample database ([sample databases are downloadable from dev.mysql.com](https://dev.mysql.com/doc/index-other.html))
+- All previous labs successfully completed
+
 
 ### Lab standard
 
@@ -162,7 +161,7 @@ Pay attention to the prompt, to know where execute the commands
   +--------------------------------+
   ```
 
-## Task 2: the first javascript store program
+## Task 2: the first javascript stored program
 
 1. Now let's create and run our first stored function and check how the variables changes.  
   First set the test database as default
@@ -248,7 +247,9 @@ Pay attention to the prompt, to know where execute the commands
   +---------------+
   ```
 
-6. We can now see how the MLE component status is changed from INACTIVE to ACTIVE
+## Task 3: How MLE status change after the first javascript stored program
+
+1. We can now see how the MLE component status is changed from INACTIVE to ACTIVE
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -267,7 +268,7 @@ Pay attention to the prompt, to know where execute the commands
   +----------------------------+-----------+------+------------+-----------+-------------------------------------------+
   ```
 
-7. We can also see that  
+2. We can also see that  
   * the memory is 'Allocated' (mle\_heap\_status)
   * we are using 23% of the memory (mle\_memory\_used)
   * we have 2 js functions in memory cache (mle\_stored\_functions) where the overall js functions and procedures is also 2 (mle\_stored\_programs)
@@ -302,7 +303,7 @@ Pay attention to the prompt, to know where execute the commands
   +------------------------------+------------+
   ```
 
-8. Variables for MLE have the prefix 'mle\_'. The most  important now is 'mle.memory\_max', that set the maximum amount of memory to allocate to the MLE component.  
+3. Variables for MLE have the prefix 'mle\_'. The most  important now is 'mle.memory\_max', that set the maximum amount of memory to allocate to the MLE component.  
   This variable is dynamic, but can be set only when the component is inactive (so at install time or before any use of JavaScript stored programs).  
   Memory is not allocated until the component is activated by creating or executing a stored program that uses JavaScript.  
 
@@ -321,13 +322,15 @@ Pay attention to the prompt, to know where execute the commands
   ```
 
 
-You may now **proceed to the next lab**
+You can now **proceed to the next lab**
 
 
 ## Learn More
 
-* [MySQL Linux Installation](https://dev.mysql.com/doc/en/binary-installation.html)
-* [MySQL tutorial](https://dev.mysql.com/doc/refman/8.4/en/tutorial.html)
+* [Multilingual Engine Component (MLE)](https://dev.mysql.com/doc/refman/9.2/en/mle-component.html)
+* [JavaScript Stored Program Creation and Management](https://dev.mysql.com/doc/refman/9.2/en/srjs-management.html)
+* [JavaScript Stored Program Examples](https://dev.mysql.com/doc/refman/9.2/en/srjs-examples.html)
+
 
 ## Acknowledgements
 

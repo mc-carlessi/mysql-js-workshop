@@ -14,6 +14,7 @@ JavaScript language support in MySQL conforms to the [ECMAscript 2023](https://2
 Goal:
 - Create Javascript libraries
 - Access Javascript functions inside libraries
+- Load external libraries
 
 Estimated Time:  10 minutes
 
@@ -140,6 +141,123 @@ Pay attention to the prompt, to know where execute the commands
           return n $ 2
                   ^
   ```
+
+## Task 3: Load and use external libraries
+
+1. We see now another way to address the GCD problem: instead of manually create a function, we can import an existing libraries, that includes gcd and many other useful math functions (e.g. to manage vectors).
+  First exit form MySQL Shell
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>\quit</copy>
+  ```
+
+2. Let's now download a math library ([https://mathjs.org/download.html](https://mathjs.org/download.html))  
+  > This is just an example, ***this is not a sponsor, recommendation or indication of support for libraries***
+
+  **![green-dot](./images/green-square.jpg) shell>**  
+  ```shell
+  <copy>cd /home/opc/</copy>
+  ```
+
+  **![green-dot](./images/green-square.jpg) shell>**  
+  ```shell
+  <copy>wget https://unpkg.com/mathjs@14.3.1/lib/browser/math.js</copy>
+  ```
+
+2. Rename the file as .sql
+
+  **![green-dot](./images/green-square.jpg) shell>**  
+  ```shell
+  <copy>mv math.js math.sql</copy>
+  ```
+
+4. Now edit the file adding "header and footer" that declare the library with MySQL standard.  
+  You can you a text editor (like vi or nano) or other tools. We use here sed and echo, because it's just add lines in front and at the end of the file .  
+  Example:
+  ```sql
+  CREATE LIBRARY my_library LANGUAGE JAVASCRIPT
+  AS $mle$
+  // ... content of the .js or .mjs file
+  $mle$;
+  ```
+
+  **![green-dot](./images/green-square.jpg) shell>**  
+  ```shell
+  <copy>sed -i '1i CREATE LIBRARY ext_math_library LANGUAGE JAVASCRIPT\nAS $mle$\n' math.sql</copy>
+  ```
+
+  **![green-dot](./images/green-square.jpg) shell>**  
+  ```shell
+  <copy>echo '$mle$;' >>  math.sql</copy>
+  ```
+
+5. We are now ready to import the library.  
+  Reconnect as admin.  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>mysqlsh admin@127.0.0.1</copy>
+  ```  
+
+6. Set the jslib as the database where to execute the import  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```js
+  <copy>USE jslib;</copy>
+  ```
+
+7. Import the library  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```js
+  <copy>SOURCE math.sql;</copy>
+  ```
+
+  **OUTPUT:**  
+  ```
+  Query OK, 0 rows affected (0.2344 sec)
+  ```
+
+8. Create in test the new program that uses the imported library.  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```js
+  <copy>
+  CREATE FUNCTION test.ext_gcd_js(arg1 INT, arg2 INT) RETURNS INT DETERMINISTIC
+  LANGUAGE JAVASCRIPT
+  USING (jslib.ext_math_library)
+  AS $mle$
+    return ext_math_library.math.gcd(arg1, arg2);
+  $mle$;
+  </copy>
+  ```
+
+9. Now calculate the gcd with the new function
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+  ```sql
+  <copy>SELECT test.ext_gcd_js(50,30);</copy>
+  ```
+
+  **OUTPUT:** 
+  ```text
+  +------------+------------+------------+
+  | myfunc1(3) | myfunc1(4) | myfunc1(5) |
+  +------------+------------+------------+
+  |          6 |          8 |         10 |
+  +------------+------------+------------+
+  ```
+
+
+
+
+
+
+
+
+
+
 
 You can now **proceed to the next lab**
 
