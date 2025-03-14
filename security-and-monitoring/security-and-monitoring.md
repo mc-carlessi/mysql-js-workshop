@@ -33,8 +33,8 @@ Pay attention to the prompt, to know where execute the commands
   The command is SQL and must be executed in a client like MySQL, MySQL Shell or similar tool
 * ![yellow-dot](./images/yellow-square.jpg) mysqlsh>  
   The command must be executed in MySQL shell javascript command mode
-  
-## Task 1: Install and configure MLE component
+
+## Task 1: Stored programs executed with invoker privilege
 
 1. If not already connected, connect to your mysql server
 
@@ -50,23 +50,50 @@ Pay attention to the prompt, to know where execute the commands
   <copy>mysqlsh admin@127.0.0.1</copy>
   ```
 
-3. A stored object that executes in definer security context executes with the privileges of the account named by its DEFINER attribute.  
-  When you create a stored program, the default definer is who create the program.  
-  We created the store programs as admin, so let's now create a new user.  
+3. By default, stored programs are executed with DEFINER (who create it) privileges.  
+  This may be a risk for the security, so it's a best practice to define the store programs to use the INVOKER (who call/execute the stored program) privilege using 'SQL SECURITY' specification.
+  Let's recreate the stored procedure that return the cities with more than 1 million people.
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```js
+  <copy>
+  CREATE PROCEDURE test.cities_1million_secure(arg1 CHAR(3))
+  SQL SECURITY INVOKER
+  LANGUAGE JAVASCRIPT AS $mle$
+    // arg1 is an existing country code inside world.city database
+    let myquery='SELECT Name, Population FROM world.city WHERE Population > 1000000 AND CountryCode = "' + arg1 + '"';
+    console.clear();
+
+    let s = session.sql(myquery);
+    
+    let res = s.execute();
+    
+    console.log(res.getColumnNames());
+    
+    let row = res.fetchOne();
+    
+    while(row) {
+      console.log(row.toArray());
+      row = res.fetchOne();
+    }
+  $mle$;
+  ```
+
+4. Let's now create a new user.  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
   <copy>CREATE USER appuser@'%' IDENTIFIED BY 'Welcome1!';</copy>
   ```
 
-4. Now we can grant the execution privilege of the 'cities\_1million' procedure to the new user.  
+5. And give him only the privilege to execute 'cities\_1million\secure'.  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>GRANT EXECUTE ON PROCEDURE test.cities_1million to appuser@'%';</copy>
+  <copy>GRANT EXECUTE ON PROCEDURE test.cities_1million_secure to appuser@'%';</copy>
   ```
 
-5. Now switch to the new user
+6. Now switch to the new user
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -85,7 +112,80 @@ Pay attention to the prompt, to know where execute the commands
   ERROR: 1142 (42000): SELECT command denied to user 'appuser'@'localhost' for table 'city'
   ```
 
-7. But the stored procedure was created with default DEFINER privilege
+7. If we execute hte stored procedure, are used hte privilege of the user, so it return an error  
+  We don't risk to share information that are not visible to the user.  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>CALL test.cities_1million_secure('ITA');</copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  ERROR: 1142 (42000): SELECT command denied to user 'appuser'@'localhost' for table 'city'
+  ```
+
+
+## Task 2: Stored programs to limit data access
+
+1. Of course, we can use the DEFINER/INVOKER to grant controlled access to data.  
+  Let's reconnect as admin user
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>\c admin@127.0.0.1</copy>
+  ```
+
+2. As you remember, we already created a function that returns the cities with more than one million people.
+  Let's compare the execution context for 'cities\_1million' and 'cities\_1million_secure'.  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>
+  SELECT ROUTINE_SCHEMA, ROUTINE_NAME, DEFINER, SECURITY_TYPE 
+  FROM information_schema.routines 
+  WHERE ROUTINE_SCHEMA='test' AND ROUTINE_NAME like 'cities_1million%';
+  </copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  +----------------+------------------------+---------+---------------+
+  | ROUTINE_SCHEMA | ROUTINE_NAME           | DEFINER | SECURITY_TYPE |
+  +----------------+------------------------+---------+---------------+
+  | test           | cities_1million        | admin@% | DEFINER       |
+  | test           | cities_1million_secure | admin@% | INVOKER       |
+  +----------------+------------------------+---------+---------------+
+  ```
+
+3. We now want that appuser is able to retrieve the cities with more than 1 million people, without grant him privileges on world database.  
+  So we grant the execution privilege of the 'cities\_1million' procedure to him.  
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>GRANT EXECUTE ON PROCEDURE test.cities_1million to appuser@'%';</copy>
+  ```
+
+4. Now switch to the new user
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>\c appuser@127.0.0.1</copy>
+  ```
+
+6. User is still unable to read data from world.city tables.    
+
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>SELECT * from world.city LIMIT 5;</copy>
+  ```
+
+  **OUTPUT:**
+  ```
+  ERROR: 1142 (42000): SELECT command denied to user 'appuser'@'localhost' for table 'city'
+  ```
+
+7. But the user is able to retrieve the required information using the stored procedure
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -97,8 +197,7 @@ Pay attention to the prompt, to know where execute the commands
   Query OK, 0 rows affected (0.0029 sec)
   ```
 
-8. And appuser is able to see the result.  
-  We limited the access to only the procedure and not to the full database!
+8. And of course see the output   
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
@@ -118,7 +217,7 @@ Pay attention to the prompt, to know where execute the commands
   +-------------------------------------------------------------+
   ```
 
-## Task 2: Store programs information
+## Task 3: Stored programs information
 
 1. We see now some useful queries.  
   But first, reconnect as admin
@@ -132,7 +231,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>select ROUTINE_NAME from information_schema.routines where ROUTINE_SCHEMA='test';</copy>
+  <copy>SELECT ROUTINE_NAME FROM information_schema.routines WHERE ROUTINE_SCHEMA='test';</copy>
   ```
 
   **OUTPUT SAMPLE:**
@@ -293,7 +392,7 @@ Pay attention to the prompt, to know where execute the commands
         DATABASE_COLLATION: utf8mb4_0900_ai_ci
   ```
 
-## Task 3: Libraries information
+## Task 4: Libraries information
 
 1. We can search all the libraries available  
 
@@ -333,13 +432,13 @@ Pay attention to the prompt, to know where execute the commands
     $$
   ```
 
-This **ends the workshop**
+This **ends the workshop**.
 
 
 ## Learn More
 
-* [MySQL Linux Installation](https://dev.mysql.com/doc/en/binary-installation.html)
-* [MySQL tutorial](https://dev.mysql.com/doc/refman/8.4/en/tutorial.html)
+* [Stored Object Access Control](https://dev.mysql.com/doc/refman/9.2/en/stored-objects-security.html)
+
 
 ## Acknowledgements
 
