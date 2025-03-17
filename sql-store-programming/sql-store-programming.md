@@ -38,31 +38,31 @@ Pay attention to the prompt, to know where execute the commands
 
 1. If not already connected, connect to your mysql server
 
-    **![green-dot](./images/green-square.jpg) shell>**  
-    ```shell
-    <copy>ssh -i $HOME/sshkeys/id_rsa opc@<your_server_public_ip></copy>
-    ```
+  **![green-dot](./images/green-square.jpg) shell>**  
+  ```shell
+  <copy>ssh -i $HOME/sshkeys/id_rsa opc@<your_server_public_ip></copy>
+  ```
 
 2. Now connect yo your MySQL instance
 
-    **![green-dot](./images/green-square.jpg) mysqlsh>**
-    ```sql
-    <copy>mysqlsh admin@127.0.0.1</copy>
-    ```
+  **![green-dot](./images/green-square.jpg) mysqlsh>**
+  ```sql
+  <copy>mysqlsh admin@127.0.0.1</copy>
+  ```
 
 3. Let's create a database for our store programs
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-    ```sql
-    <copy>CREATE DATABASE test;</copy>
-    ```
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>CREATE DATABASE test;</copy>
+  ```
 
 4. Set the database as default for our store programming
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-    ```sql
-    <copy>USE test;</copy>
-    ```
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>USE test;</copy>
+  ```
 
 5. A **stored procedure** is an object created with CREATE PROCEDURE and invoked using the CALL statement. This object contains a set of instructions that are executed as a program.  
   A procedure **does not have a return value**, but can modify its parameters for later inspection by the caller. It can also generate result sets to be returned to the client program.  
@@ -75,68 +75,76 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
   <copy>
-  CREATE PROCEDURE helloword_sql()
+  CREATE PROCEDURE helloworld_sql()
   BEGIN
     SELECT "Hello World";
   END;
   </copy>
   ```
 
+  **OUTPUT:**
+  ```
+  ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+  
+   MySQL  127.0.0.1:3306 ssl  test  SQL >   END;
+  ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 1
+  ```
+
 6. From the previous command you will receive an error, because the default termination of the commands (";") execute them immediately.  
-    For this reason, we need to define an alternative command terminator to use ';' inside our code when we create stored procedures or functions (SQL or js). 
-    Let set it now.
+  For this reason, we need to define an alternative command terminator to use ';' inside our code when we create stored procedures or functions (SQL or js). 
+  Let set it now.
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
 
-    ```
-    <copy>DELIMITER //</copy>
-    ```
+  ```
+  <copy>DELIMITER //</copy>
+  ```
 
 7. Now we can insert our store procedure code.  
-    Please note that after this code is not executed. To apply we need to go with the next step.
+  Please note that after this code is not executed. To apply we need to go with the next step.
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-    ```sql
-    <copy>
-    CREATE PROCEDURE helloword_sql()
-    BEGIN
-      SELECT "Hello World";
-    END;
-    </copy>
-    ```
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```sql
+  <copy>
+  CREATE PROCEDURE helloworld_sql()
+  BEGIN
+    SELECT "Hello World";
+  END;
+  </copy>
+  ```
 
-8. Now Execute the commands just inserted using the new terminator
+8. Now execute the commands just inserted using the new terminator
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-    ```
-    <copy>//</copy>
-    ```
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  ```
+  <copy>//</copy>
+  ```
 
 9. And restore the default terminator character, to simplify our activities.
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
 
-    ```sql
-    <copy>DELIMITER ;</copy>
-    ```
+  ```sql
+  <copy>DELIMITER ;</copy>
+  ```
 
 10. Our first stored procedure is created, and we are now ready to execute it using the 'CALL' command.
 
-    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
 
-    ```sql
-    <copy>CALL helloword_sql;</copy>
-    ```
+  ```sql
+  <copy>CALL helloworld_sql;</copy>
+  ```
 
-    **OUTPUT:**
-    ```
-    +-------------+
-    | Hello World |
-    +-------------+
-    | Hello World |
-    +-------------+
-    1 row in set (0.0021 sec)
-    ```
+  **OUTPUT:**
+  ```
+  +-------------+
+  | Hello World |
+  +-------------+
+  | Hello World |
+  +-------------+
+  1 row in set (0.0021 sec)
+  ```
 
 ## Task 2: SQL Store procedures - parameters and variables
 
@@ -150,7 +158,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
 
   ```
-  <copy>DROP PROCEDURE IF EXISTS helloword_sql;</copy>
+  <copy>DROP PROCEDURE IF EXISTS helloworld_sql;</copy>
   ```
 
 2. Recreate the stored procedure to use a parameter.
@@ -162,7 +170,7 @@ Pay attention to the prompt, to know where execute the commands
   <copy>
   DELIMITER //
 
-  CREATE PROCEDURE helloword_sql(IN name VARCHAR(50))
+  CREATE PROCEDURE helloworld_sql(IN name VARCHAR(50))
     BEGIN
     select concat("Hello world from ", name);
   END;
@@ -177,7 +185,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
-  <copy>CALL helloword_sql('Goofy');</copy>
+  <copy>CALL helloworld_sql('Goofy');</copy>
   ```
 
   **OUTPUT:**
@@ -194,12 +202,12 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
-  <copy>CALL helloword_sql();</copy>
+  <copy>CALL helloworld_sql();</copy>
   ```
 
   **OUTPUT:**
   ```
-  ERROR: 1318 (42000): Incorrect number of arguments for PROCEDURE test.helloword; expected 1, got 0
+  ERROR: 1318 (42000): Incorrect number of arguments for PROCEDURE test.helloworld; expected 1, got 0
   ```
 
 5. You can also use variables to store values during the program execution. Use DECLARE to initialize  and SET to assign values
@@ -207,11 +215,11 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
   <copy>
-  DROP PROCEDURE IF EXISTS helloword_sql;
+  DROP PROCEDURE IF EXISTS helloworld_sql;
   
   DELIMITER //
 
-  CREATE PROCEDURE helloword_sql(IN name VARCHAR(50))
+  CREATE PROCEDURE helloworld_sql(IN name VARCHAR(50))
     BEGIN
     DECLARE msg VARCHAR(20) DEFAULT '';
 
@@ -229,7 +237,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```
-  <copy>CALL helloword_sql('Goofy');</copy>
+  <copy>CALL helloworld_sql('Goofy');</copy>
   ```
 
   **OUTPUT:**
@@ -248,11 +256,11 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
   <copy>
-  DROP PROCEDURE IF EXISTS helloword_sql;
+  DROP PROCEDURE IF EXISTS helloworld_sql;
   
   DELIMITER //
 
-  CREATE PROCEDURE helloword_sql(IN name VARCHAR(50))
+  CREATE PROCEDURE helloworld_sql(IN name VARCHAR(50))
   BEGIN
 
     IF name = '' OR name IS NULL then
@@ -272,13 +280,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>CALL helloword_sql('Goofy');</copy>
+  <copy>CALL helloworld_sql('Goofy');</copy>
   ```
 
   **OUTPUT:**
   ```
   +-----------------------------------+
-  | message                         |
+  | message                           |
   +-----------------------------------+
   | Hello world from Goofy            |
   +-----------------------------------+
@@ -288,13 +296,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>CALL helloword_sql('');</copy>
+  <copy>CALL helloworld_sql('');</copy>
   ```
 
   **OUTPUT:**
   ```
   +---------------------------------+
-  | message                       |
+  | message                         |
   +---------------------------------+
   | Hello world from from anonymous |
   +---------------------------------+
@@ -317,7 +325,7 @@ Pay attention to the prompt, to know where execute the commands
   <copy>
   DELIMITER //
 
-  CREATE FUNCTION helloword_sqlf(name VARCHAR(50)) RETURNS CHAR(50) DETERMINISTIC
+  CREATE FUNCTION helloworld_sqlf(name VARCHAR(50)) RETURNS CHAR(50) DETERMINISTIC
   BEGIN
     DECLARE message CHAR(50) DEFAULT '';
     
@@ -340,13 +348,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT helloword_sqlf('');</copy>
+  <copy>SELECT helloworld_sqlf('');</copy>
   ```
 
   **OUTPUT:**
   ```
   +---------------------------------+
-  | helloword_sqlf('')              |
+  | helloworld_sqlf('')             |
   +---------------------------------+
   | Hello world from from anonymous |
   +---------------------------------+
@@ -356,7 +364,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT helloword_sqlf('Goofy') AS message;</copy>
+  <copy>SELECT helloworld_sqlf('Goofy') AS message;</copy>
   ```
 
   **OUTPUT:**
