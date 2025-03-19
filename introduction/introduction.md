@@ -21,8 +21,8 @@ Estimated Workshop Time: 1.5 hours (This estimate is for the entire workshop - i
 - Knowledge on common Linux commands (yum, ls, mv, cp, tar, pwd, ps, systemctl, tail, groupadd, useradd, grep, kill) and editors (vi, or nano)
    - labs are executed in Oracle Linux 8 servers
 - Knowledge of MySQL architecture (including binary logs) and MySQL commands
-- Knowledge of MySQL SQL
-- Knowledge of javascript
+- At least basic knowledge of MySQL SQL and MySQL stored programming
+- Ate least basic knowledge of Javascript
 
 ## Objectives
 
