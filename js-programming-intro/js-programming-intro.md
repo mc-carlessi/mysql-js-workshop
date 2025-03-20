@@ -50,12 +50,10 @@ Pay attention to the prompt, to know where execute the commands
   
 ## Task 1: Install and configure MLE component
 
-1. If not already connected, connect to your mysql server
+1. Connect to your **server** instance using your web browser
 
-  **![green-dot](./images/green-square.jpg) shell>**  
-  ```shell
-  <copy>ssh -i $HOME/sshkeys/id_rsa opc@<your_server_public_ip></copy>
-  ```
+  ![CONNECT](./images/login-with-labels.png)  
+
 
 2. Now connect yo your MySQL instance
 
