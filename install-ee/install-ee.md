@@ -51,33 +51,49 @@ The two command mode available are in javascript and python. Don't be confused: 
     Please use this kind of connection if the web terminal is not available (e.g. if your company laptop prevent access web sites with self signed certificates)  
 
 
-1. Open your web browser and connect to the address ***<code>https://<public-ip>:9090</code>*** like in the picture.  
-  Then insert ***'opc'*** as user name and the provided password.  
+1. Open your web browser and connect to the address ***<code>https://<public-ip>:9090</code>***  
+  Most probably you receive a warning becasue the interface uses a self signed certificate.  
+  Please proceed anyway (in most cases it means to click "Advanced" and tehn "Proceed to ... (unsafe)")
+
+  ![CONNECT](./images/private_connection_message.png)
+
+
+2. At login form, insert ***'opc'*** as user name and the provided password.  
   Then click ***'log in'*** button
 
   ![CONNECT](./images/login-with-labels.png)
 
 
-2. When logged in, select ***'Terminal'*** from left side bar  
+3. When logged in, you may have a "not found message". ignore it and click on ***'Terminal'*** from left side bar  
 
   ![TERMINAL](./images/terminal.png)
 
 
-3. For a better visibility you can also change font size or background color.  
+4. For a better visibility you can also change font size or background color.  
 
   ![TERMINAL SETTINGS](./images/terminal-settings.png)
 
-4. You can open as many sessions as you need, just a new web session.  
-  If you are using more than one connection, we suggest to use different background color to easily identify where you are working.  
 
-5. To logout, select ***'Session/Log out'*** from at the top right of the page.  
+5. This web terminal let you also copy and paste commands with right/secondary click of your mouse.  
+
+  ![TERMINAL SETTINGS](./images/terminal-copy-and-paste.png)
+
+
+6. To logout, select ***'Session/Log out'*** from at the top right of the page.  
 
   ![LOGOUT](./images/session-logout.png)
 
 
+> ***NOTE***  
+You can open as many sessions as you need, just opening a new web session.  
+If you are using more than one connection, we suggest to use different background color to easily identify where you are working.  
+
+
+
+
 ## Task 2: Install MySQL Enterprise Edition using Linux RPM's
 
-1. Connect to your **server** instance using your web browser
+1. If not already connected, connect to your **server** instance using your web browser
 
   ![CONNECT](./images/login-with-labels.png)  
 
