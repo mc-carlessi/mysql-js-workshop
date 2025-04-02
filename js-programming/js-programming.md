@@ -1,7 +1,7 @@
 # MYSQL JAVASCRIPT STORED PROGRAMMING  
 
 ## Introduction
-JavaScript stored programs can be used together with other user-created and MySQL-native stored programs (subject to some limitations described in teh manual), as well as with MySQL system and user variables. 
+JavaScript stored programs can be used together with other user-created and MySQL-native stored programs (subject to some limitations described in the manual), as well as with MySQL system and user variables. 
 
 Goal:
 - Create Javascript stored procedures
@@ -48,7 +48,7 @@ Pay attention to the prompt, to know where execute the commands
 
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
-    <copy>mysqlsh admin@127.0.0.1</copy>
+    <copy>mysqlsh root@localhost</copy>
     ```
 
 3. Let's set the default database for our store programs
@@ -170,7 +170,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT helloword('Goofy') AS message;</copy>
+  <copy>SELECT helloword_jsf('Goofy') AS message;</copy>
   ```
 
   **OUTPUT:**
@@ -188,8 +188,6 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```js
   <copy>
-  DROP FUNCTION IF EXISTS gcd_js;
-
   CREATE FUNCTION gcd_js(x int, y int) RETURNS int DETERMINISTIC
   LANGUAGE JAVASCRIPT AS $mle$
     let dividend=1;
@@ -228,7 +226,7 @@ Pay attention to the prompt, to know where execute the commands
   +--------------+
   ```
 
-7. Of course we write the procedure in a way ore in line with javascript.  
+7. Of course we write the procedure in a way more in line with javascript.  
   We use here a recursive function, and the mod functions that doesn't care which number is greatest.
   Please remember that by default the maximum recursion is 1000. 
 
@@ -343,7 +341,7 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```js
   <copy>
-  CREATE PROCEDURE jssp_simple_error(IN mytable VARCHAR(250))
+  CREATE PROCEDURE error_sample_js(IN mytable VARCHAR(250))
   LANGUAGE JAVASCRIPT AS $mle$
     let session = mysql.getSession()
     let res = session.sql("SELECT * FROM " + mytable + " LIMIT 5;").execute()
@@ -360,11 +358,11 @@ Pay attention to the prompt, to know where execute the commands
   </copy>
   ```
 
-2. Now we call jssp\_simple\_error(), passing to it a table in the world database
+2. Now we call error\_sample\_js(), passing to it a table in the world database
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>CALL jssp_simple_error("world.city");</copy>
+  <copy>CALL error_sample_js("world.city");</copy>
   ```
 
   **OUTPUT:**
@@ -398,7 +396,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>CALL jssp_simple_error("t_unknown");</copy>
+  <copy>CALL error_sample_js("t_unknown");</copy>
   ```
 
   **OUTPUT:**
@@ -414,7 +412,9 @@ Pay attention to the prompt, to know where execute the commands
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```js
   <copy>
-  CREATE PROCEDURE jssp_simple_error(IN mytable VARCHAR(250))
+  DROP PROCEDURE error_sample_js;
+  
+  CREATE PROCEDURE error_sample_js(IN mytable VARCHAR(250))
   LANGUAGE JAVASCRIPT AS $mle$
   let session = mysql.getSession()
   console.clear();
@@ -442,7 +442,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>CALL jssp_simple_error("world.city");</copy>
+  <copy>CALL error_sample_js("world.city");</copy>
   ```
 
   **OUTPUT:**
@@ -475,7 +475,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>CALL jssp_simple_error("t_unknown");</copy>
+  <copy>CALL error_sample_js("t_unknown");</copy>
   ```
 
   **OUTPUT:**

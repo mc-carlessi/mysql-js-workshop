@@ -59,10 +59,10 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>mysqlsh admin@127.0.0.1</copy>
+  <copy>mysqlsh root@localhost</copy>
   ```
 
-3. Let's increase the error log verbosity to see more information 
+3. Let's increase the error log verbosity to see more information. It's not required for MLE programming, but useful to understand better in this workshop  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -110,8 +110,9 @@ Pay attention to the prompt, to know where execute the commands
   +----------------------------+-----------+------+------------+-----------+---------------------------------+
   ```
 
-7. Status of the component can be retrieved with a show status statement. Component was just started, but never used, so not loaded.  
-  For this reason majority of the variables are just initialized.
+7. Status of the component can be retrieved with a show status statement. Variables for MLE have the prefix 'mle\_'.  
+  So far, in our workshop, the component was just started, but never used (=not loaded).  
+  Let's see the actual mle status.
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -141,9 +142,9 @@ Pay attention to the prompt, to know where execute the commands
   +------------------------------+---------------+
   ```
 
-8. Variables for MLE have the prefix 'mle\_'. We can control also the maximum amount of memory to allocate to the MLE component ('mle.memory\_max').  
-  This variable is dynamic, but can be set only when the component is inactive (so at install time or before any use of JavaScript stored programs).  
+8. The amount of memory used by MLE component is controlled by the variable 'mle.memory\_max'.  
   Memory is not allocated until the component is activated by creating or executing a stored program that uses JavaScript.  
+  This variable is dynamic, but can be set only when the component is inactive (e.g. at install time or before any use of JavaScript stored programs).  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -301,23 +302,6 @@ Pay attention to the prompt, to know where execute the commands
   +------------------------------+------------+
   ```
 
-3. Variables for MLE have the prefix 'mle\_'. The most  important now is 'mle.memory\_max', that set the maximum amount of memory to allocate to the MLE component.  
-  This variable is dynamic, but can be set only when the component is inactive (so at install time or before any use of JavaScript stored programs).  
-  Memory is not allocated until the component is activated by creating or executing a stored program that uses JavaScript.  
-
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```sql
-  <copy>SELECT format_bytes(@@mle.memory_max);</copy>
-  ```
-
-  **OUTPUT:** 
-  ```
-  +--------------------------------+
-  | format_bytes(@@mle.memory_max) |
-  +--------------------------------+
-  | 1.27 GiB                       |
-  +--------------------------------+
-  ```
 
 
 You can now **proceed to the next lab**

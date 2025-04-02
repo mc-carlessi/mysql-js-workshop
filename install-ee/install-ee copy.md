@@ -187,7 +187,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![green-dot](./images/green-square.jpg) shell>** 
     ```
-  <copy>mysqlsh admin@127.0.0.1</copy>
+  <copy>mysqlsh root@localhost</copy>
   ```
 
 3. Import the world sample database that is in /workshop/databases folder.

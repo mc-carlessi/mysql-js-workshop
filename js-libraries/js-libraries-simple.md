@@ -54,7 +54,7 @@ Pay attention to the prompt, to know where execute the commands
 
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
-    <copy>mysqlsh admin@127.0.0.1</copy>
+    <copy>mysqlsh root@localhost</copy>
     ```
 
 3. Let's create a database to store our libraries

@@ -45,7 +45,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![green-dot](./images/green-square.jpg) mysqlsh>**
   ```sql
-  <copy>mysqlsh admin@127.0.0.1</copy>
+  <copy>mysqlsh root@localhost</copy>
   ```
 
 3. Let's create a database for our store programs
@@ -99,7 +99,7 @@ Pay attention to the prompt, to know where execute the commands
   ```
 
 7. Now we can insert our store procedure code.  
-  Please note that after this code is not executed. To apply we need to go with the next step.
+  Please note that after ***this code is not executed and the last line is waiting input with '-> '*** is not returned. To apply we need to go with the next step.
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
@@ -228,6 +228,7 @@ Pay attention to the prompt, to know where execute the commands
   //
 
   DELIMITER ;
+
   </copy>
   ```
 
@@ -346,13 +347,13 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>SELECT helloworld_sqlf('');</copy>
+  <copy>SELECT helloworld_sqlf('') AS message;</copy>
   ```
 
   **OUTPUT:**
   ```
   +---------------------------------+
-  | helloworld_sqlf('')             |
+  | message                         |
   +---------------------------------+
   | Hello world from from anonymous |
   +---------------------------------+

@@ -45,7 +45,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
   ```sql
-  <copy>mysqlsh admin@127.0.0.1</copy>
+  <copy>mysqlsh root@localhost</copy>
   ```
 
 3. By default, stored programs are executed with DEFINER (who create it) privileges.  
@@ -401,19 +401,19 @@ Pay attention to the prompt, to know where execute the commands
 
   **OUTPUT SAMPLE:**
   ```
-  +----------------+-----------------+------------+---------+
-  | LIBRARY_SCHEMA | LIBRARY_NAME    | LANGUAGE   | CREATOR |
-  +----------------+-----------------+------------+---------+
-  | jslib          | lib1            | JAVASCRIPT | admin@% |
-  | test           | my_math_library | JAVASCRIPT | admin@% |
-  +----------------+-----------------+------------+---------+
+  +----------------+------------------+------------+---------+
+  | LIBRARY_SCHEMA | LIBRARY_NAME     | LANGUAGE   | CREATOR |
+  +----------------+------------------+------------+---------+
+  | jslibs         | lib1             | JAVASCRIPT | admin@% |
+  | test           | ext_math_library | JAVASCRIPT | admin@% |
+  +----------------+------------------+------------+---------+
   ```
 
 3. We can show the creation code of the library.  
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>SHOW CREATE LIBRARY jslib.lib1\G</copy>
+  <copy>SHOW CREATE LIBRARY jslibs.lib1\G</copy>
   ```
 
   **OUTPUT:**

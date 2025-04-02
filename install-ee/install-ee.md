@@ -53,7 +53,7 @@ The two command mode available are in javascript and python. Don't be confused: 
 
 1. Open your web browser and connect to the address ***<code>https://<public-ip>:9090</code>***  
   Most probably you receive a warning becasue the interface uses a self signed certificate.  
-  Please proceed anyway (in most cases it means to click "Advanced" and tehn "Proceed to ... (unsafe)")
+  Please proceed anyway (in most cases it means to click "Advanced" and then "Proceed to ... (unsafe)")
 
   ![CONNECT](./images/private_connection_message.png)
 
@@ -146,33 +146,23 @@ If you are using more than one connection, we suggest to use different backgroun
     <copy>sudo systemctl status mysqld</copy>
     ```
 
-  **![green-dot](./images/green-square.jpg) shell>** 
-    ```shell
-    <copy>netstat -an | grep 3306</copy>
-    ```
+## Task 3: First setup of MySQL Enterprise Edition
 
-6.	Another way is searching the message “ready for connections” in error log as one of the last 
-
-  **![green-dot](./images/green-square.jpg) shell>** 
-    ```shell
-    <copy>sudo grep -i ready /var/log/mysqld.log</copy>
-    ```
-
-7.	Retrieve root password for first login:
+1.	Retrieve root password for first login:
 
   **![green-dot](./images/green-square.jpg) shell>** 
     ```shell
     <copy>sudo grep -i 'temporary password' /var/log/mysqld.log</copy>
     ```
 
-8. Login to the the mysql-enterprise, change temporary password and check instance the status
+2. Login to the the mysql-enterprise, change temporary password and check instance the status
 
   **![green-dot](./images/green-square.jpg) shell>** 
     ```shell
     <copy>mysqlsh root@localhost</copy>
     ```
 
-9. Create New Password for MySQL Root
+3. Create New Password for MySQL Root
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
@@ -184,35 +174,14 @@ If you are using more than one connection, we suggest to use different backgroun
     <copy>\status</copy>
     ```
 
-## Task 3: Create a new administrative user and import a sample database
-
-1.	Create a new administrative user called 'admin' with remote access and full privileges
-
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-    ```sql
-    <copy>CREATE USER 'admin'@'%' IDENTIFIED BY 'Welcome1!';</copy>
-    ```
-
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-    ```sql
-    <copy>GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;</copy>
-    ```
-
-2. Test the login of the new user (saving the password).
-
-  **![green-dot](./images/green-square.jpg) shell>** 
-    ```shell
-    <copy>mysqlsh admin@127.0.0.1</copy>
-    ```
-
-3. Import the world sample database that is in /workshop/databases folder.
+4. Import the world sample database that is in /workshop/databases folder.
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
     <copy>SOURCE /workshop/databases/world/world.sql;</copy>
     ```
 
-4. To exit from MySQL Shell, use '\quit' or '\q'
+5. To exit from MySQL Shell, use '\quit' or '\q'
   
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql

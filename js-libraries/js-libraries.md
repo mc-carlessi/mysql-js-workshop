@@ -53,7 +53,7 @@ Pay attention to the prompt, to know where execute the commands
 
     **![orange-dot](./images/orange-square.jpg) mysqlsh>**
     ```sql
-    <copy>mysqlsh admin@127.0.0.1</copy>
+    <copy>mysqlsh root@localhost</copy>
     ```
 
 3. Let's create a database to store our libraries
@@ -142,33 +142,29 @@ Pay attention to the prompt, to know where execute the commands
 
 ## Task 3: Load and use external libraries
 
-1. We see now another way to address the GCD problem: instead of manually create a function, we can import an existing libraries, that includes gcd and many other useful math functions (e.g. to manage vectors).
+1. We see now another way to address the GCD problem: instead of manually create a function, we can import an existing library, that includes gcd and many other useful math functions.
   First exit form MySQL Shell
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
-  ```sql
-  <copy>\quit</copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+    ```sql
+    <copy>\quit</copy>
+    ```
 
-2. Let's now download a math library ([https://mathjs.org/download.html](https://mathjs.org/download.html))  
-  > This is just an example, ***this is not a sponsor, recommendation or indication of support for libraries***
-
-  **![green-dot](./images/green-square.jpg) shell>**  
-  ```shell
-  <copy>cd /home/opc/</copy>
-  ```
+2. Let's now download a math library ([https://mathjs.org/download.html](https://mathjs.org/download.html)).  
+  To simplify our lab we download a library without dependencies.   
+  > This is just an example, ***this is not a sponsor, recommendation or indication of support for 3rd party libraries***  
 
   **![green-dot](./images/green-square.jpg) shell>**  
   ```shell
-  <copy>wget https://unpkg.com/mathjs@14.3.1/lib/browser/math.js</copy>
+  <copy>wget https://unpkg.com/math@0.0.3/math.js -O mathjs.js</copy>
   ```
 
-2. Rename the file as .sql
+3. Rename the file as .sql, to import it inside our instance
 
-  **![green-dot](./images/green-square.jpg) shell>**  
-  ```shell
-  <copy>mv math.js math.sql</copy>
-  ```
+    **![green-dot](./images/green-square.jpg) shell>**  
+    ```shell
+    <copy>mv mathjs.js mathjs.sql</copy>
+    ```
 
 4. Now edit the file adding "header and footer" that declare the library with MySQL standard.  
   You can you a text editor (like vi or nano) or other tools. We use here sed and echo, because it's just add lines in front and at the end of the file .  
@@ -182,108 +178,108 @@ Pay attention to the prompt, to know where execute the commands
 
   **![green-dot](./images/green-square.jpg) shell>**  
   ```shell
-  <copy>sed -i '1i CREATE LIBRARY ext_math_library LANGUAGE JAVASCRIPT\nAS $mle$\n' math.sql</copy>
+  <copy>sed -i '1i CREATE LIBRARY mathjs LANGUAGE JAVASCRIPT\nAS $mle$\n' mathjs.sql</copy>
   ```
 
   **![green-dot](./images/green-square.jpg) shell>**  
   ```shell
-  <copy>echo '$mle$;' >>  math.sql</copy>
+  <copy>echo -e '\n$mle$;' >>  mathjs.sql</copy>
   ```
 
 5. We are now ready to import the library.  
   Reconnect as admin.  
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```sql
-  <copy>mysqlsh admin@127.0.0.1</copy>
-  ```  
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    ```sql
+    <copy>mysqlsh root@localhost</copy>
+    ```  
 
 6. Set the jslibs as the database where to execute the import  
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```js
-  <copy>USE jslibs;</copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    ```js
+    <copy>USE jslibs;</copy>
+    ```
 
 7. Import the library  
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```js
-  <copy>SOURCE math.sql;</copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    ```js
+    <copy>SOURCE mathjs.sql;</copy>
+    ```
 
-  **OUTPUT:**  
-  ```
-  Query OK, 0 rows affected (0.2344 sec)
-  ```
+    **OUTPUT:**  
+    ```
+    Query OK, 0 rows affected (0.2344 sec)
+    ```
 
 8. Let's return to our test database
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```js
-  <copy>USE test;</copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    ```js
+    <copy>USE test;</copy>
+    ```
 
 9. We can now use the function from the imported library inside our Javascript programs.  
   Let's create a simple function that return the gcd.  
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```js
-  <copy>
-  CREATE FUNCTION ext_gcd_js(arg1 INT, arg2 INT) RETURNS INT DETERMINISTIC
-  LANGUAGE JAVASCRIPT
-  USING (ext_math_library)
-  AS $mle$
-    return Math.gcd(arg1, arg2);
-  $mle$;
-  </copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    ```js
+    <copy>
+    CREATE FUNCTION ext_gcd_js(arg1 INT, arg2 INT) RETURNS INT DETERMINISTIC
+    LANGUAGE JAVASCRIPT
+    USING (jslibs.mathjs)
+    AS $mle$
+      return Math.gcd(arg1, arg2);
+    $mle$;
+    </copy>
+    ```
 
 10. Now calculate the gcd with the new function
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
-  ```sql
-  <copy>SELECT ext_gcd_js(50,30);</copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+    ```sql
+    <copy>SELECT ext_gcd_js(50,30);</copy>
+    ```
 
-  **OUTPUT:** 
-  ```text
-  +-------------------+
-  | ext_gcd_js(50,30) |
-  +-------------------+
-  |                10 |
-  +-------------------+
-  ```
+    **OUTPUT:** 
+    ```text
+    +-------------------+
+    | ext_gcd_js(50,30) |
+    +-------------------+
+    |                10 |
+    +-------------------+
+    ```
 
 11. But we can now use all the function in the imported library, for example to calculate the Least common multiple
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**
-  ```js
-  <copy>
-  CREATE FUNCTION ext_lcm_js(arg1 INT, arg2 INT) RETURNS INT DETERMINISTIC
-  LANGUAGE JAVASCRIPT
-  USING (ext_math_library)
-  AS $mle$
-    return Math.lcm(arg1, arg2);
-  $mle$;
-  </copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**
+    ```js
+    <copy>
+    CREATE FUNCTION ext_lcm_js(arg1 INT, arg2 INT) RETURNS INT DETERMINISTIC
+    LANGUAGE JAVASCRIPT
+    USING (jslibs.mathjs)
+    AS $mle$
+      return Math.lcm(arg1, arg2);
+    $mle$;
+    </copy>
+    ```
 
-12. And check teh result.  
+12. And check the result.  
 
-  **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
-  ```sql
-  <copy>SELECT ext_lcm_js(50,30);</copy>
-  ```
+    **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
+    ```sql
+    <copy>SELECT ext_lcm_js(50,30);</copy>
+    ```
 
-  **OUTPUT:** 
-  ```text
-  +-------------------+
-  | ext_lcm_js(50,30) |
-  +-------------------+
-  |               150 |
-  +-------------------+
-  ```
+    **OUTPUT:** 
+    ```text
+    +-------------------+
+    | ext_lcm_js(50,30) |
+    +-------------------+
+    |               150 |
+    +-------------------+
+    ```
 
 
 You can now **proceed to the next lab**.
