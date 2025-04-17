@@ -250,7 +250,7 @@ Pay attention to the prompt, to know where execute the commands
 
   **![orange-dot](./images/orange-square.jpg) mysqlsh>**  
   ```sql
-  <copy>SHOW CREATE FUNCTION helloword_jsf\G</copy>
+  <copy>SHOW CREATE FUNCTION test.helloword_jsf\G</copy>
   ```
 
   **OUTPUT:**
